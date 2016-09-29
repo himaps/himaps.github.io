@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-02T15:20:15.000Z</updated>
+  <updated>2016-09-29T15:15:41.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,209 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MBTiles格式学习</title>
+    <link href="http://yoursite.com/2016/09/29/MBTiles%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://yoursite.com/2016/09/29/MBTiles格式学习/</id>
+    <published>2016-09-29T15:02:24.000Z</published>
+    <updated>2016-09-29T15:15:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="MBTiles格式学习"><a href="#MBTiles格式学习" class="headerlink" title="MBTiles格式学习"></a>MBTiles格式学习</h1><p>MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照<a href="http://mapbox.com/mbtiles-spec/" target="_blank" rel="external">MBTiles官方说明</a>。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>遵循TMS规范。即原点坐标为左下角，向北，向东增长。</li>
+<li>只支持Web Mercator投影。（EPSG：3857或EPSG：900913）。</li>
+<li>瓦片尺寸为256 X 256。支持格式：jpg或png。</li>
+<li>通过建立视图，减少重复瓦片的存储，减少数据大小。</li>
+<li>后缀名为.mbtiles，可以通过一般的SQLite查看器查看。</li>
+<li>瓦片比例尺固定。参照下表。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">显示级别</th>
+<th style="text-align:center">地图宽（高）</th>
+<th style="text-align:center">瓦片数量</th>
+<th style="text-align:center">分辨率</th>
+<th style="text-align:center">比例尺（96dpi）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">256</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">156543.033928</td>
+<td style="text-align:center">1:591658710.909131</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">512</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">78271.516964</td>
+<td style="text-align:center">1:295829355.454566</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">39135.758482</td>
+<td style="text-align:center">1:147914677.727283</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2048</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">19567.879241</td>
+<td style="text-align:center">1:73957338.863641</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4096</td>
+<td style="text-align:center">256</td>
+<td style="text-align:center">9783.939621</td>
+<td style="text-align:center">1:36978669.431821</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">8192</td>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">4891.969810</td>
+<td style="text-align:center">1:18489334.715910</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">16384</td>
+<td style="text-align:center">4096</td>
+<td style="text-align:center">2445.984905</td>
+<td style="text-align:center">1:9244667.357955</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">32768</td>
+<td style="text-align:center">16384</td>
+<td style="text-align:center">1222.992453</td>
+<td style="text-align:center">1:4622333.678978</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">65536</td>
+<td style="text-align:center">65536</td>
+<td style="text-align:center">611.496226</td>
+<td style="text-align:center">1:2311166.839489</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">131072</td>
+<td style="text-align:center">262144</td>
+<td style="text-align:center">305.748113</td>
+<td style="text-align:center">1:1155583.419744</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">262144</td>
+<td style="text-align:center">1048576</td>
+<td style="text-align:center">152.874057</td>
+<td style="text-align:center">1:577791.709872</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">524288</td>
+<td style="text-align:center">4194304</td>
+<td style="text-align:center">76.437028</td>
+<td style="text-align:center">1:288895.854936</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">1048576</td>
+<td style="text-align:center">16777216</td>
+<td style="text-align:center">38.218514</td>
+<td style="text-align:center">1:144447.927468</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">2097152</td>
+<td style="text-align:center">67108864</td>
+<td style="text-align:center">19.109257</td>
+<td style="text-align:center">1:72223.963734</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">4194304</td>
+<td style="text-align:center">268435456</td>
+<td style="text-align:center">9.554629</td>
+<td style="text-align:center">1:36111.981867</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">8388608</td>
+<td style="text-align:center">1073741824</td>
+<td style="text-align:center">4.777314</td>
+<td style="text-align:center">1:18055.990934</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">16777216</td>
+<td style="text-align:center">4294967296</td>
+<td style="text-align:center">2.388657</td>
+<td style="text-align:center">1:9027.995467</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">33554432</td>
+<td style="text-align:center">17179869184</td>
+<td style="text-align:center">1.194329</td>
+<td style="text-align:center">1:4513.997733</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">67108864</td>
+<td style="text-align:center">68719476736</td>
+<td style="text-align:center">0.597164</td>
+<td style="text-align:center">1:2256.998867</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:center">134217728</td>
+<td style="text-align:center">274877906944</td>
+<td style="text-align:center">0.298582</td>
+<td style="text-align:center">1:1128.499433</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">268435456</td>
+<td style="text-align:center">1099511627776</td>
+<td style="text-align:center">0.149291</td>
+<td style="text-align:center">1:564.249717</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">536870912</td>
+<td style="text-align:center">4398046511104</td>
+<td style="text-align:center">0.074646</td>
+<td style="text-align:center">1:282.124858</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">1073741824</td>
+<td style="text-align:center">17592186044416</td>
+<td style="text-align:center">0.037323</td>
+<td style="text-align:center">1:141.062429</td>
+</tr>
+</tbody>
+</table>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;MBTiles格式学习&quot;&gt;&lt;a href=&quot;#MBTiles格式学习&quot; class=&quot;headerlink&quot; title=&quot;MBTiles格式学习&quot;&gt;&lt;/a&gt;MBTiles格式学习&lt;/h1&gt;&lt;p&gt;MBTiles 是由 MapBox 在SQLite 数据库基础上定制
+    
+    </summary>
+    
+    
+      <category term="MBTiles" scheme="http://yoursite.com/tags/MBTiles/"/>
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>

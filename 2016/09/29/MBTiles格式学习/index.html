@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>MBTiles格式学习 | Himaps | 不要因为走的太远，而忘了为什么出发！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="theme-color" content="#3F51B5">
+  
+  
+  <meta name="keywords" content="MBTiles">
+  <meta name="description" content="MBTiles格式学习MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照MBTiles官方说明。
+特点
+遵循TMS规范。即原点坐标为左下角，向北，向东增长。
+只支持Web Mercator投影。（EPSG：3857或EPSG：900913）。
+瓦片尺寸为256 X 256。支持格式：jpg或png。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MBTiles格式学习">
+<meta property="og:url" content="http://yoursite.com/2016/09/29/MBTiles格式学习/index.html">
+<meta property="og:site_name" content="Himaps">
+<meta property="og:description" content="MBTiles格式学习MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照MBTiles官方说明。
+特点
+遵循TMS规范。即原点坐标为左下角，向北，向东增长。
+只支持Web Mercator投影。（EPSG：3857或EPSG：900913）。
+瓦片尺寸为256 X 256。支持格式：jpg或png。">
+<meta property="og:updated_time" content="2016-09-29T15:15:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MBTiles格式学习">
+<meta name="twitter:description" content="MBTiles格式学习MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照MBTiles官方说明。
+特点
+遵循TMS规范。即原点坐标为左下角，向北，向东增长。
+只支持Web Mercator投影。（EPSG：3857或EPSG：900913）。
+瓦片尺寸为256 X 256。支持格式：jpg或png。">
+  
+    <link rel="alternative" href="/atom.xml" title="Himaps" type="application/atom+xml">
+  
+  <meta name="summary" content="不要因为走的太远，而忘了为什么出发！">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="loading" class="active"></div>
+
+  <nav id="menu" class="hide" >
+   <div class="inner flex-row-vertical">
+  <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+      <i class="icon icon-lg icon-close"></i>
+  </a>
+  <div class="brand-wrap">
+    <div class="brand">
+      <a href="/" class="avatar"><img src="/img/logo.png"></a>
+      <hgroup class="introduce">
+        <h5 class="nickname">himaps</h5>
+        <a href="mailto:g2c@foxmail.com" title="g2c@foxmail.com" class="mail">g2c@foxmail.com</a>
+      </hgroup>
+    </div>
+  </div>
+  <div class="scroll-wrap flex-col">
+    <ul class="nav">
+      
+          <li class="waves-block waves-effect">
+            <a href="/"  >
+              <i class="icon icon-lg icon-home"></i>
+              主页
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/archives"  >
+              <i class="icon icon-lg icon-archives"></i>
+              归档
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="/tags"  >
+              <i class="icon icon-lg icon-tags"></i>
+              标签
+            </a>
+          </li>
+      
+          <li class="waves-block waves-effect">
+            <a href="https://github.com/himaps" target="_blank" >
+              <i class="icon icon-lg icon-github"></i>
+              Github
+            </a>
+          </li>
+      
+    </ul>
+
+    <footer class="footer">
+  <p><a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC" /></a></p>
+  <p>Himaps &copy; 2016</p>
+  <p>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme
+  <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+</footer>
+
+  </div>
+</div>
+
+  </nav>
+  <main id="main">
+    <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MBTiles格式学习</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input " autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-share">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header">
+  <div class="container">
+    <h1 class="author">MBTiles格式学习</h1>
+    <h5 class="subtitle">
+        
+            <time datetime="2016-09-29T15:02:24.000Z" itemprop="datePublished" class="page-time">
+  2016-09-29
+</time>
+
+
+        
+    </h5>
+  </div>
+</header>
+
+    <div class="container body-wrap">
+      <article id="post-MBTiles格式学习" 
+  class="article article-type-post" itemprop="blogPost">
+    <div class="post-meta flex-row">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MBTiles/">MBTiles</a></li></ul>
+
+    </div>
+    <div class="post-body">
+        <aside class="post-widget" id="post-widget">
+
+            
+            <div class="post-share" id="post-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+            
+
+            
+            <nav class="post-toc-wrap" id="post-toc">
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#MBTiles格式学习"><span class="post-toc-text">MBTiles格式学习</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#特点"><span class="post-toc-text">特点</span></a></li></ol></li></ol>
+            </nav>
+            
+        </aside>
+
+        <div class="post-main">
+
+            <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="MBTiles格式学习"><a href="#MBTiles格式学习" class="headerlink" title="MBTiles格式学习"></a>MBTiles格式学习</h1><p>MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照<a href="http://mapbox.com/mbtiles-spec/" target="_blank" rel="external">MBTiles官方说明</a>。</p>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
+<li>遵循TMS规范。即原点坐标为左下角，向北，向东增长。</li>
+<li>只支持Web Mercator投影。（EPSG：3857或EPSG：900913）。</li>
+<li>瓦片尺寸为256 X 256。支持格式：jpg或png。</li>
+<li>通过建立视图，减少重复瓦片的存储，减少数据大小。</li>
+<li>后缀名为.mbtiles，可以通过一般的SQLite查看器查看。</li>
+<li>瓦片比例尺固定。参照下表。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">显示级别</th>
+<th style="text-align:center">地图宽（高）</th>
+<th style="text-align:center">瓦片数量</th>
+<th style="text-align:center">分辨率</th>
+<th style="text-align:center">比例尺（96dpi）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">256</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">156543.033928</td>
+<td style="text-align:center">1:591658710.909131</td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">512</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center">78271.516964</td>
+<td style="text-align:center">1:295829355.454566</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">16</td>
+<td style="text-align:center">39135.758482</td>
+<td style="text-align:center">1:147914677.727283</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">2048</td>
+<td style="text-align:center">64</td>
+<td style="text-align:center">19567.879241</td>
+<td style="text-align:center">1:73957338.863641</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">4096</td>
+<td style="text-align:center">256</td>
+<td style="text-align:center">9783.939621</td>
+<td style="text-align:center">1:36978669.431821</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">8192</td>
+<td style="text-align:center">1024</td>
+<td style="text-align:center">4891.969810</td>
+<td style="text-align:center">1:18489334.715910</td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">16384</td>
+<td style="text-align:center">4096</td>
+<td style="text-align:center">2445.984905</td>
+<td style="text-align:center">1:9244667.357955</td>
+</tr>
+<tr>
+<td style="text-align:center">7</td>
+<td style="text-align:center">32768</td>
+<td style="text-align:center">16384</td>
+<td style="text-align:center">1222.992453</td>
+<td style="text-align:center">1:4622333.678978</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:center">65536</td>
+<td style="text-align:center">65536</td>
+<td style="text-align:center">611.496226</td>
+<td style="text-align:center">1:2311166.839489</td>
+</tr>
+<tr>
+<td style="text-align:center">9</td>
+<td style="text-align:center">131072</td>
+<td style="text-align:center">262144</td>
+<td style="text-align:center">305.748113</td>
+<td style="text-align:center">1:1155583.419744</td>
+</tr>
+<tr>
+<td style="text-align:center">10</td>
+<td style="text-align:center">262144</td>
+<td style="text-align:center">1048576</td>
+<td style="text-align:center">152.874057</td>
+<td style="text-align:center">1:577791.709872</td>
+</tr>
+<tr>
+<td style="text-align:center">11</td>
+<td style="text-align:center">524288</td>
+<td style="text-align:center">4194304</td>
+<td style="text-align:center">76.437028</td>
+<td style="text-align:center">1:288895.854936</td>
+</tr>
+<tr>
+<td style="text-align:center">12</td>
+<td style="text-align:center">1048576</td>
+<td style="text-align:center">16777216</td>
+<td style="text-align:center">38.218514</td>
+<td style="text-align:center">1:144447.927468</td>
+</tr>
+<tr>
+<td style="text-align:center">13</td>
+<td style="text-align:center">2097152</td>
+<td style="text-align:center">67108864</td>
+<td style="text-align:center">19.109257</td>
+<td style="text-align:center">1:72223.963734</td>
+</tr>
+<tr>
+<td style="text-align:center">14</td>
+<td style="text-align:center">4194304</td>
+<td style="text-align:center">268435456</td>
+<td style="text-align:center">9.554629</td>
+<td style="text-align:center">1:36111.981867</td>
+</tr>
+<tr>
+<td style="text-align:center">15</td>
+<td style="text-align:center">8388608</td>
+<td style="text-align:center">1073741824</td>
+<td style="text-align:center">4.777314</td>
+<td style="text-align:center">1:18055.990934</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:center">16777216</td>
+<td style="text-align:center">4294967296</td>
+<td style="text-align:center">2.388657</td>
+<td style="text-align:center">1:9027.995467</td>
+</tr>
+<tr>
+<td style="text-align:center">17</td>
+<td style="text-align:center">33554432</td>
+<td style="text-align:center">17179869184</td>
+<td style="text-align:center">1.194329</td>
+<td style="text-align:center">1:4513.997733</td>
+</tr>
+<tr>
+<td style="text-align:center">18</td>
+<td style="text-align:center">67108864</td>
+<td style="text-align:center">68719476736</td>
+<td style="text-align:center">0.597164</td>
+<td style="text-align:center">1:2256.998867</td>
+</tr>
+<tr>
+<td style="text-align:center">19</td>
+<td style="text-align:center">134217728</td>
+<td style="text-align:center">274877906944</td>
+<td style="text-align:center">0.298582</td>
+<td style="text-align:center">1:1128.499433</td>
+</tr>
+<tr>
+<td style="text-align:center">20</td>
+<td style="text-align:center">268435456</td>
+<td style="text-align:center">1099511627776</td>
+<td style="text-align:center">0.149291</td>
+<td style="text-align:center">1:564.249717</td>
+</tr>
+<tr>
+<td style="text-align:center">21</td>
+<td style="text-align:center">536870912</td>
+<td style="text-align:center">4398046511104</td>
+<td style="text-align:center">0.074646</td>
+<td style="text-align:center">1:282.124858</td>
+</tr>
+<tr>
+<td style="text-align:center">22</td>
+<td style="text-align:center">1073741824</td>
+<td style="text-align:center">17592186044416</td>
+<td style="text-align:center">0.037323</td>
+<td style="text-align:center">1:141.062429</td>
+</tr>
+</tbody>
+</table>
+
+            <blockquote>
+                <p>
+                本文地址：
+                <a href="http://yoursite.com/2016/09/29/MBTiles格式学习/" target="_blank" rel="external">http://yoursite.com/2016/09/29/MBTiles格式学习/</a>
+                </p>
+                <footer><cite><a href="http://yoursite.com">@Himaps</a></cite></footer>
+            </blockquote>
+            </div>
+            
+<nav class="post-nav">
+  
+
+  
+    <div class="waves-block waves-effect next fr">
+      <a href="/2016/07/01/hello-world/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hello World</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+            
+            
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="MBTiles格式学习" data-title="MBTiles格式学习" data-url="http://yoursite.com/2016/09/29/MBTiles格式学习/index.html"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"himaps2"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+        </div>
+    </div>
+</article>
+    </div>
+  </main>
+<div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+<script>
+var BLOG_SHARE = {
+    title: "MBTiles格式学习",
+    pic: "/img/logo.png",
+    summary: document.getElementsByName('summary')[0].content,
+    url: "http://yoursite.com/2016/09/29/MBTiles格式学习/index.html"
+};
+</script>
+<div class="global-share" id="global-share">
+    <div class="tit">分享到：</div>
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" href="javascript:;" data-title="微博" data-service="tsina">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns" href="javascript:;" data-title="微信" data-service="weixin">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" href="javascript:;" data-title=" QQ" data-service="cqq">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" href="javascript:;" data-title=" Facebook" data-service="fb">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" href="javascript:;" data-title=" Twitter" data-service="twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="douban share-sns" href="javascript:;" data-title="豆瓣" data-service="douban">
+          豆
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+<script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+
+<script src="/js/main.js"></script>
+
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<script type="text/template" id="search-tpl">
+<li class="item">
+    <a href="/{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</script>
+
+<script src="/js/search.js"></script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
