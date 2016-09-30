@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-30T12:15:25.000Z</updated>
+  <updated>2016-09-30T12:24:26.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/09/30/Geoserver%20%E5%AE%89%E8%A3%85GDAL%E6%89%A9%E5%B1%95%E6%AD%A5%E9%AA%A4/"/>
     <id>http://yoursite.com/2016/09/30/Geoserver 安装GDAL扩展步骤/</id>
     <published>2016-09-30T11:53:08.000Z</published>
-    <updated>2016-09-30T12:15:25.000Z</updated>
+    <updated>2016-09-30T12:24:26.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="GeoServer安装GDAL扩展步骤"><a href="#GeoServer安装GDAL扩展步骤" class="headerlink" title="GeoServer安装GDAL扩展步骤"></a>GeoServer安装GDAL扩展步骤</h1><p>GeoServer是一个开源的 WebGIS 系统，默认支持的空间数据格式较少，通过安装GDAL扩展之后，即可支持GDAL的数据源，提高了 GeoServer 的应用场景。</p>
 <p>本文以GeoServer 2.7.1版本为例，详细讲解GDAL扩展的安装步骤，其他版本参照安装即可。</p>
@@ -80,7 +80,9 @@
     </summary>
     
     
-      <category term="GeoServer GDAL" scheme="http://yoursite.com/tags/GeoServer-GDAL/"/>
+      <category term="GeoServer" scheme="http://yoursite.com/tags/GeoServer/"/>
+    
+      <category term="GDAL" scheme="http://yoursite.com/tags/GDAL/"/>
     
   </entry>
   
@@ -89,7 +91,7 @@
     <link href="http://yoursite.com/2016/09/29/MBTiles%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
     <id>http://yoursite.com/2016/09/29/MBTiles格式学习/</id>
     <published>2016-09-29T15:02:24.000Z</published>
-    <updated>2016-09-30T11:58:18.000Z</updated>
+    <updated>2016-09-30T12:24:41.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="MBTiles格式学习"><a href="#MBTiles格式学习" class="headerlink" title="MBTiles格式学习"></a>MBTiles格式学习</h1><p>MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照<a href="http://mapbox.com/mbtiles-spec/" target="_blank" rel="external">MBTiles官方说明</a>。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
