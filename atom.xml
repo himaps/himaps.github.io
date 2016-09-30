@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-29T15:15:41.000Z</updated>
+  <updated>2016-09-30T12:00:57.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,80 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>GeoServer安装GDAL扩展步骤</title>
+    <link href="http://yoursite.com/2016/09/30/Geoserver%20%E5%AE%89%E8%A3%85GDAL%E6%89%A9%E5%B1%95%E6%AD%A5%E9%AA%A4/"/>
+    <id>http://yoursite.com/2016/09/30/Geoserver 安装GDAL扩展步骤/</id>
+    <published>2016-09-30T11:53:08.000Z</published>
+    <updated>2016-09-30T12:00:57.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="GeoServer安装GDAL扩展步骤"><a href="#GeoServer安装GDAL扩展步骤" class="headerlink" title="GeoServer安装GDAL扩展步骤"></a>GeoServer安装GDAL扩展步骤</h1><p>GeoServer是一个开源的 WebGIS 系统，默认支持的空间数据格式较少，通过安装GDAL扩展之后，即可支持GDAL的数据源，提高了 GeoServer 的应用场景。</p>
+<p>本文以GeoServer 2.7.1版本为例，详细讲解GDAL扩展的安装步骤，其他版本参照安装即可。</p>
+<h2 id="所需工具"><a href="#所需工具" class="headerlink" title="所需工具"></a>所需工具</h2><ol>
+<li><p>GeoServer GDAL扩展包</p>
+<p><a href="http://sourceforge.net/projects/GeoServer/files/GeoServer/2.7.1/extensions/geoserver-2.7.1-gdal-plugin.zip" target="_blank" rel="external">下载地址</a></p>
+<p>如下图所示：</p>
+<p><img src="img/image012.png" alt="Geoserver GDAL扩展包截图"></p>
+</li>
+<li><p>GDAL运行库</p>
+<p><a href="http://demo.geo-solutions.it/share/github/imageio-ext/releases/1.1.X/1.1.10/native/gdal/windows/MSVC2010/gdal-1.9.2-MSVC2010-x64.zip" target="_blank" rel="external">下载地址</a></p>
+<p><strong>注意对应的系统版本</strong></p>
+<p>如下图所示：</p>
+<p><img src="img/image001.png" alt="GDAL运行库截图"></p>
+</li>
+<li><p>ECW和mrsid支持</p>
+<p><a href="http://demo.geo-solutions.it/share/github/imageio-ext/releases/1.1.X/1.1.10/native/gdal/windows/MSVC2010/gdal-19-1600-ecw.msi" target="_blank" rel="external">下载地址</a></p>
+<p><strong>注意对应的版本</strong></p>
+<p>如下图所示：</p>
+<p><img src="img/image002.png" alt="ECW和mrsid支持"></p>
+</li>
+<li><p>GDAL DATA</p>
+<p><a href="http://demo.geo-solutions.it/share/github/imageio-ext/releases/1.1.X/1.1.10/native/gdal/gdal-data.zip" target="_blank" rel="external">下载地址</a></p>
+<p><strong>注意对应的版本</strong></p>
+<p>如下图所示：</p>
+<p><img src="img/image003.png" alt="GDAL DATA"></p>
+</li>
+</ol>
+<h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><ol>
+<li><p>安装Geoserver的GDAL扩展</p>
+<p>解压解压geoserver-2.7.2-gdal-plugin.zip，复制里面所有的jar文件到Geoserver安装目录的WEB-INF/lib下，直接替换同名文件。</p>
+</li>
+<li><p>安装GDAL运行库</p>
+<p>根据系统版本和vs编译器的版本，下载对应的GDAL运行库。解压到任意一个目录，如D:\Program Files\GDAL。</p>
+<p>将上述目录添加到系统变量PATH中。如下图所示。</p>
+<p><img src="img/image007.png" alt="添加GDAL运行库到系统环境变量中"></p>
+</li>
+<li><p>添加ecw和mrsid扩展支持</p>
+<p>双击运行gdal-19-1600-mrsid.msi，完成mrsid扩展安装，在choose setup type一步，选择complete。默认安装在C:\Program Files\GDAL\gdalplugins。</p>
+<p>Ecw扩展的安装和mrsid安装相同，不再赘述。</p>
+<p>注册GDAL_DRIVER_PATH环境变量。新建环境变量，变量名为GDAL_DRIVER_PATH，变量值为C:\Program   Files\GDAL\gdalplugins,即ecw和mrsid扩展的安装目录。</p>
+</li>
+<li><p>注册GDAL DAT目录</p>
+<p>把下载的gdal-data.zip，解压到磁盘中（D:\Program Files\PostgreSQL\9.4\gdal-data）,并把该目录添加到系统环境变量中，变量名为GDAL_DATA,变量值为D:\Program Files\PostgreSQL\9.4\gdal-data。</p>
+</li>
+<li><p>重新启动Geoserver</p>
+<p>如果出现下图所示的界面，说明安装成功。</p>
+<p><img src="img/image011.png" alt="安装成功界面"></p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;GeoServer安装GDAL扩展步骤&quot;&gt;&lt;a href=&quot;#GeoServer安装GDAL扩展步骤&quot; class=&quot;headerlink&quot; title=&quot;GeoServer安装GDAL扩展步骤&quot;&gt;&lt;/a&gt;GeoServer安装GDAL扩展步骤&lt;/h1&gt;&lt;p&gt;Ge
+    
+    </summary>
+    
+    
+      <category term="GeoServer GDAL" scheme="http://yoursite.com/tags/GeoServer-GDAL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>MBTiles格式学习</title>
     <link href="http://yoursite.com/2016/09/29/MBTiles%E6%A0%BC%E5%BC%8F%E5%AD%A6%E4%B9%A0/"/>
     <id>http://yoursite.com/2016/09/29/MBTiles格式学习/</id>
     <published>2016-09-29T15:02:24.000Z</published>
-    <updated>2016-09-29T15:15:41.000Z</updated>
+    <updated>2016-09-30T11:58:18.000Z</updated>
     
     <content type="html"><![CDATA[<h1 id="MBTiles格式学习"><a href="#MBTiles格式学习" class="headerlink" title="MBTiles格式学习"></a>MBTiles格式学习</h1><p>MBTiles 是由 MapBox 在SQLite 数据库基础上定制的一种瓦片存储规范，克服了传统文件式瓦片存储拷贝、分发不方便的不足。详细信息参照<a href="http://mapbox.com/mbtiles-spec/" target="_blank" rel="external">MBTiles官方说明</a>。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ol>
@@ -205,6 +274,8 @@
 </tr>
 </tbody>
 </table>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><p>mbutil支持把本地瓦片打包为mbtiles格式，支持tms、google、arcgis等格式的瓦片。</p>
+<p><a href="https://github.com/mapbox/mbutil" target="_blank" rel="external">下载地址</a></p>
 ]]></content>
     
     <summary type="html">
@@ -215,35 +286,6 @@
     
     
       <category term="MBTiles" scheme="http://yoursite.com/tags/MBTiles/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2016/07/01/hello-world/"/>
-    <id>http://yoursite.com/2016/07/01/hello-world/</id>
-    <published>2016-07-01T12:09:47.000Z</published>
-    <updated>2016-09-02T15:20:15.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
-    
-      <category term="hello" scheme="http://yoursite.com/tags/hello/"/>
     
   </entry>
   
