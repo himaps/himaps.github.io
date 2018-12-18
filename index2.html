@@ -8,10 +8,12 @@
 		body{
 			text-align: center;
 			font-family: "STHeiti";
+			font-size: 26px;
+			color: #4682B4
 		}
 		video{
-			max-width: 1280px;
-			max-height: 720px;
+			max-width: 1024px;
+			max-height: 576px;
 			width: 100%;
 			margin: 0 auto;
 		}
@@ -29,7 +31,7 @@
 	<div id="wordplayer">
 		<video  :src="src" controls></video>
 		<br />
-		<h3>{{word}}</h3>
+		<p>{{word}}</p>
 		<br />
 		<p><button @click='changeWord'>换一个</button></p>
 	</div>
