@@ -3,7 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>百词斩单词TV</title>
-	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css" integrity="sha384-nn4HPE8lTHyVtfCBi5yW9d20FjT8BJwUXyWZT9InLYax14RDjBj46LmSztkmNP9w" crossorigin="anonymous">
+	<link href="http://cdn.bootcss.com/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet">
+
+
 	<style>
 
 		body{
@@ -29,14 +31,15 @@
 
 </head>
 <body>
-	<div id="wordplayer">
+
+	<div id="wordplayer" >
 		<video  :src="src" controls></video>
 		<p>{{word}}</p>
 		<p>
-				<button @click='changeWord' class="pure-button pure-button-primary">换一个</button>
+		<button @click='changeWord' class="ui inverted primary button">换一个</button>
 		</p>
 		<div class="pure-g">
-		<input class="pure-u-23-24" type="text" v-model="wordsearch">
+			<input class="ui input focus" type="text" v-model="wordsearch">
 		</div>
 	</div>
 <script>
