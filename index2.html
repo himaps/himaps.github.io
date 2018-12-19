@@ -3,8 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>百词斩单词TV</title>
-	<link href="http://cdn.bootcss.com/semantic-ui/2.2.9/semantic.min.css" rel="stylesheet">
-
+	<link href="css/semantic.css" rel="stylesheet">
 
 	<style>
 
@@ -38,8 +37,8 @@
 		<p>
 		<button @click='changeWord' class="ui inverted primary button">换一个</button>
 		</p>
-		<div class="pure-g">
-			<input class="ui input focus" type="text" v-model="wordsearch">
+		<div class="ui icon input">
+  			<input v-model="wordsearch" type="text" placeholder="搜一搜">
 		</div>
 	</div>
 <script>
@@ -50,7 +49,7 @@
 		el:'#wordplayer',
 		data:{
 			words:allWords,
-			idx:0
+			idx:parseInt(Math.random()*5000%3600)
 		},
 		computed: {
     		src: function(){
