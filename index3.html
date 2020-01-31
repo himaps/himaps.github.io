@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RoadRead</title>
+	<link href="css/semantic.css" rel="stylesheet">
+
+	<style>
+
+		body{
+			text-align: center;
+			font-family: "STHeiti";
+			font-size: 26px;
+			color: #4682B4
+		}
+	</style>
+	<script src="js/base64.min.js"></script>
+	<script src="js/aes.js"></script>
+
+</head>
+<body>
+	<p id="abc"> 
+
+	</p>
+	<script>
+
+		var b64text="CqG6+tKLGOCWmEpn+awcQpkdgHASWz7ktN1T2tuU97itRCRCGj9T6sebcXfkvp7UnvwoFCESvz28mk4JeuONvmRd47JxpMFKksGf/a7iR3Cz+VBmjA/Gm6NqnZ0/VDLr4oU/xSDkSE5nmPCmdg/WmM4JA5EnnRwNepKxFr+fDdqlb1GR7Cp9xVsM7JNxCxo4KUlEEfk/ZSu1OXGFJBNF3tB5GSASDt0O6yL/J3b1z2jaLBBAhQB65u7v3cgIMJzTcwamzEHzNk/cIodYhI1v49XBxX6HViOzrVltGRgJBud1zS025BFaCpWLfHcfiBzfbvfubFIiZ04CL0LNBq0sKpVI294xOa3IFemxG6Muiegs5536fTV4ZJ1m145OvsIV+TR7I0vBdVp7RLqkFtjZEeo2DpXUxY09OqQViiQBaiU5/DjnvuNoCSZwxqBLiu/zHNcgCIZnj5QkYm0Nkw6Yv9hhhP74kOg57V7eqJ5KUQ4pCvjA13OdcU7YPREWN7y3dRtyD8LjutYn3w+xQvD/Yj0rIWG2U+FZbcTZKLAfeylh8sfcmLgX9cRo8L9OkMGUvZg3jEukjOu4oPnoUwSjFg/sMO3u9yFeCTtL4KJgXQYaLfv3yxl2xauAYeOBI/PAzgWLqoCApglaCLpv6wAGokijhg6eiZSeo02ncpA3RsPWwTisud8ZoXp+YIaN0xFB2jYYQNaY57l3kjrGv7Jx3XC0WcNKFEiy9a4id18kQ1sTJnrd2h6C8+BMxhJ8GPDtEY2HVZ+RDMujZhimh2yJYQZNPL/xmKbZg7OTo/6bENUyeHUavOhL7XgbN8G4HjW14Vss5sZoMd1d5zmcZpCYT7TVAK8srHzst0o11ERialblH1tdYPo/crjwHMsTXHCd8xKC9gli6TtGJX+vZTZSrlL/IBNcXAYGp9HQoceUYG0uiEnO/9SmXB/JHHrti0l11x9b0sHJdQQiG1XPgtGdHaJwGLmAwziAlfdErMkgyZHV7zLGxXFydkOTmTtAv8IBstYfqPDUz/uLKDEZilu2cSWNOBuuPkht6J0TqmtmBSr1FIxPg6mUADkhvNsIYaltT7dzAVvdeRY3CUyMnWJR9P7oLVkQwGdzBTr48S13rbEl4gD7jNl/DI37BFMGGs8xTgZreHdCcw7yu1Au+0h5cbtZSUrhnHwiNaIrZRzEjnqabmVYs5gb7CIpWpmkeWFdH3AK50IVxwMR7O+02Ljk/FeRflSSjDdFcVH+MTkKdkYkcpfbneZfzU7XP2+afcROp5/RUA5LfxJiD5h7ifvDxG8ocxiiV0ffbb9dpOz4gMzNZxekcMvBvM3K7FMQomgKLoEC39eWxN6GSgwr5B0Mx0A8+Xmsukrv97ZA0qiENdwfunygHE25OSHu4AJw/ta1K4bGtBTi7PT2ejVEZawQuZFJhfX77TfMdh+eY6nhmBgHGl4xVFVvkLtcxcYJCkds2S00ylEJRPbCx4Ex3tmkudoW5JwBecDo74+vpSriZT/GfZBQrGAZFvcmrOc2sETcj5gx5y67c6j4YgsMcYebQg=="
+		
+		var ttt=b64.toByteArray(b64text);
+		console.log(ttt);
+
+		var AES_IV = "5PLOEQ87Z5LM9K2U";
+		var AES_KEY = "L2HGM84N24V5UYRB";
+		var AES_MODE = "AES/CBC/PKCS5Padding";
+		var aesCbc = new aesjs.ModeOfOperation.cbc(aesjs.utils.utf8.toBytes(AES_KEY),aesjs.utils.utf8.toBytes(AES_IV));
+		var decryptedBytes = aesCbc.decrypt(ttt);
+
+		var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+		console.log(decryptedText);
+
+		var p=document.getElementById('abc');
+		p.innerText=decryptedText;
+	</script>
+</body>
+</html>
