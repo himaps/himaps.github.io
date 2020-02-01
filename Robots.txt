@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /podcasttest.rss.xml
 Disallow: /podcasttest2.rss.xml
+Disallow: /podcasttest3.rss.xml
 Disallow: /~joe/foo.html
 Disallow: /~joe/bar.html
